@@ -31,8 +31,9 @@ jobs:
         release_dir: 'Publish'
     - name: Uninstall .NET Core SDK and runtime
       run: |
-        Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
-        .\dotnet-install.ps1 -UninstallAll 
+        Invoke-WebRequest -Uri https://github.com/dotnet/cli-lab/releases/download/1.6.0/dotnet-core-uninstall-1.6.0.msi -OutFile dotnet-core-uninstall.msi
+        Start-Process msiexec.exe -ArgumentList '/i', 'dotnet-core-uninstall.msi', '/qn', 'REMOVE=ALL' -Wait
+        dotnet-core-uninstall remove --all --yes --force
     - name: Setup Dotnet for use with actions
       uses: actions/setup-dotnet@v3
       with:
