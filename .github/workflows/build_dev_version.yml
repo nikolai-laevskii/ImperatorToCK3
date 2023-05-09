@@ -1,24 +1,10 @@
 name: Build development version
 on:
-  push:
-    branches:
-    - 'master'
+  pull_request:
 
 jobs:
-  remove_old_artifacts:
-    name: Remove old artifacts
-    runs-on: ubuntu-latest
-    steps:
-    - name: Remove old artifacts
-      uses: kolpav/purge-artifacts-action@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        expire-in: 0
-
-
   upload_dev_build_artifact:
     name: Upload development build
-    needs: remove_old_artifacts
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
