@@ -10,7 +10,6 @@ jobs:
       matrix:
         build:
         - win-x64
-        - linux-x64
         include:
         - build: win-x64
           os: windows-latest
@@ -34,6 +33,9 @@ jobs:
       with:
         fronter_dir: 'Fronter.NET'
         release_dir: 'Publish'
+    - name: Sleep for 30 seconds
+      run: Start-Sleep -s 30
+      shell: powershell
     - name: Setup Dotnet for use with actions
       uses: actions/setup-dotnet@v3
       with:
