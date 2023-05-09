@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0
         submodules: recursive
     - name: "Setup Dotnet for use with actions"
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v2
       with:
         global-json-file: Fronter.NET/global.json
     - name: "Build frontend"
@@ -29,11 +29,8 @@ jobs:
       with:
         fronter_dir: 'Fronter.NET'
         release_dir: 'Publish'
-    - name: Sleep for 120 seconds
-      run: Start-Sleep -s 120
-      shell: powershell
     - name: Setup Dotnet for use with actions
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v2
       with:
         global-json-file: global.json
     - name: "Build backend"
