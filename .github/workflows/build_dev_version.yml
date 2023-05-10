@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0
         submodules: recursive
     - name: "Setup Dotnet for use with actions"
-      uses: ./github/workflows/actions/setup-dotnet-3.0.3
+      uses: ./.github/workflows/actions/setup-dotnet-3.0.3
       with:
         global-json-file: Fronter.NET/global.json
     - name: "Build frontend"
