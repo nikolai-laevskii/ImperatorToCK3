@@ -215,6 +215,10 @@ export class DotnetCoreInstaller {
         scriptArguments.push(`-ProxyBypassList ${process.env['no_proxy']}`);
       }
 
+      if (dotnetVersion.type === '-Version') {
+        scriptArguments.push(`-InstallDir '%LocalAppData%\\Microsoft\\dotnet-${dotnetVersion.value}'`)
+      }
+
       scriptPath =
         (await io.which('pwsh', false)) || (await io.which('powershell', true));
       scriptArguments = windowsDefaultOptions.concat(scriptArguments);
