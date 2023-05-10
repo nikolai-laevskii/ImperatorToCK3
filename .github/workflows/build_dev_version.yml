@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0
         submodules: recursive
     - name: "Setup Dotnet for use with actions"
-      uses: actions/setup-dotnet@v3
+      uses: ./github/workflows/actions/setup-dotnet-3.0.3
       with:
         global-json-file: Fronter.NET/global.json
     - name: "Build frontend"
@@ -35,7 +35,7 @@ jobs:
         Start-Process msiexec.exe -ArgumentList '/i', 'dotnet-core-uninstall.msi', '/qn', 'REMOVE=ALL' -Wait
         dotnet-core-uninstall remove --all --yes --force
     - name: Setup Dotnet for use with actions
-      uses: actions/setup-dotnet@v3
+      uses: ./github/workflows/actions/setup-dotnet-3.0.3
       with:
         global-json-file: global.json
     - name: "Build backend"
