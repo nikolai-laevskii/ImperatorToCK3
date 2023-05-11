@@ -3,7 +3,7 @@ import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as io from '@actions/io';
 import * as hc from '@actions/http-client';
-import {chmodSync, access} from 'fs';
+import {chmodSync} from 'fs';
 import {readdir} from 'fs/promises';
 import path from 'path';
 import os from 'os';
@@ -215,23 +215,7 @@ export class DotnetCoreInstaller {
         scriptArguments.push(`-ProxyBypassList ${process.env['no_proxy']}`);
       }
 
-      const localAppDataPath = (await exec.getExecOutput("echo $env:LocalAppData")).stdout
-
-      const folderExists = (path: string) => new Promise(resolve => {
-        access(path, error => {
-          if (!error) {
-              resolve(true)
-          } else {
-              resolve(false)
-          }
-        });
-      });
-
       if (dotnetVersion.type === '-Version') {
-        if (await folderExists(`${localAppDataPath}\\Microsoft\\dotnet-${dotnetVersion.value}`)) {
-          core.info(`.NET core & .NET SDK of version ${dotnetVersion.value} are already installed`)
-          return this.outputDotnetVersion(dotnetVersion.value);
-        }
         scriptArguments.push(`-InstallDir '%LocalAppData%\\Microsoft\\dotnet-${dotnetVersion.value}'`)
       }
 
@@ -256,7 +240,6 @@ export class DotnetCoreInstaller {
       ignoreReturnCode: true,
       env: process.env as {string: string}
     };
-
     const {exitCode, stdout} = await exec.getExecOutput(
       `"${scriptPath}"`,
       scriptArguments,
