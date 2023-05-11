@@ -4,3 +4,6 @@
 [submodule "IR-CK3_TFE-Islam"]
 	path = RiseOfIslam
 	url = https://github.com/TinWiz/IR-CK3_TFE-Islam
+[submodule "setup-dotnet"]
+	path = setup-dotnet
+	url = git@github.com:actions/setup-dotnet.git
