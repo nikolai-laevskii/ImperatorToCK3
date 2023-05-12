@@ -1,46 +1,27 @@
 name: Build development version
 on:
-  push:
-    branches:
-    - 'master'
+  pull_request:
 
 jobs:
-  remove_old_artifacts:
-    name: Remove old artifacts
-    runs-on: ubuntu-latest
-    steps:
-    - name: Remove old artifacts
-      uses: kolpav/purge-artifacts-action@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        expire-in: 0
-
-
   upload_dev_build_artifact:
     name: Upload development build
-    needs: remove_old_artifacts
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         build:
         - win-x64
-        - linux-x64
         include:
         - build: win-x64
           os: windows-latest
           archive_type: zip
           archive_extension: .zip
-        - build: linux-x64
-          os: ubuntu-latest
-          archive_type: tar
-          archive_extension: .tgz
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
     - name: "Setup Dotnet for use with actions"
-      uses: actions/setup-dotnet@v3
+      uses: ./setup-dotnet
       with:
         global-json-file: Fronter.NET/global.json
     - name: "Build frontend"
@@ -49,7 +30,7 @@ jobs:
         fronter_dir: 'Fronter.NET'
         release_dir: 'Publish'
     - name: Setup Dotnet for use with actions
-      uses: actions/setup-dotnet@v3
+      uses: ./setup-dotnet
       with:
         global-json-file: global.json
     - name: "Build backend"

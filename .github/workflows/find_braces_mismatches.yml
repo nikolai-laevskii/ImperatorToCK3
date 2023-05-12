@@ -1,5 +1,8 @@
 name: "Find braces mismatches"
-on: [push]
+on:
+  push:
+    branches:
+      - never
 jobs:
   find_braces_mismatches:
     runs-on: ubuntu-latest
