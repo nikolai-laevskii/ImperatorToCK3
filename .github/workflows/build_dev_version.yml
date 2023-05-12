@@ -23,13 +23,12 @@ jobs:
     - name: "Setup Dotnet for use with actions"
       uses: ./setup-dotnet
       with:
-        dotnet-version: 2.1.202
-    #    global-json-file: Fronter.NET/global.json
-    # - name: "Build frontend"
-    #  uses: ./Fronter.NET/.github/actions/build_frontend
-    #  with:
-    #    fronter_dir: 'Fronter.NET'
-    #    release_dir: 'Publish'
+        global-json-file: Fronter.NET/global.json
+    - name: "Build frontend"
+      uses: ./Fronter.NET/.github/actions/build_frontend
+      with:
+        fronter_dir: 'Fronter.NET'
+        release_dir: 'Publish'
     - name: Setup Dotnet for use with actions
       uses: ./setup-dotnet
       with:
